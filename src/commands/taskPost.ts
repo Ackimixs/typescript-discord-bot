@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { Command } from "../interfaces/Command";
 import { postTaskData } from '../modules/postTaskData'
 import { getTaskData } from '../modules/getTaskData'
-import { valideDate} from '../utils/valideDate'
+import { validDate} from '../utils/validDate'
 
 export const taskPost: Command = {
     data: new SlashCommandBuilder()
@@ -41,14 +41,14 @@ export const taskPost: Command = {
         }
 
         // date is real ?
-        const dueDate = valideDate(taskDueDate)
+        const dueDate = validDate(taskDueDate)
 
         if (dueDate === null) {
             await interaction.editReply('respect dd/mm/yyyy or dd/mm or dd')
             return;
         }
 
-        const taskDataExist = await getTaskData(taskName, dueDate)
+        const taskDataExist = await getTaskData({ name: taskName, dueDate: dueDate })
 
         if (taskDataExist) {
             await interaction.editReply('task already exist')

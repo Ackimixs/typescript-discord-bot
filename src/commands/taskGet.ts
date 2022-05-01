@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { Command } from "../interfaces/Command";
 import { getTaskData } from '../modules/getTaskData'
 import { MessageEmbed } from "discord.js";
-import { valideDate } from '../utils/valideDate'
+import { validDate } from '../utils/validDate'
 
 
 export const taskGet: Command = {
@@ -18,28 +18,32 @@ export const taskGet: Command = {
             options
                 .setName('date')
                 .setDescription('dd/mm/yyyy or dd/mm or dd')
-                .setRequired(true)),
+                .setRequired(false)),
 
     run: async (interaction) => {
+        //TODO delete required date to give the first task with that name
         await interaction.deferReply()
 
-        const taskName = interaction.options.getString('name')
+        const taskName = interaction.options.getString('name') as string
         const taskDueDate = interaction.options.getString('date')
 
 
-        if (taskName===null || taskDueDate===null) {
-            await interaction.editReply('THAT IMPOSSIBLE')
-            return;
+        let options = {};
+        if (taskDueDate) {
+            const dueDate = validDate(taskDueDate)
+
+            if (dueDate === null) {
+                await interaction.editReply('respect dd/mm/yyyy or dd/mm or dd')
+                return;
+            }
+
+            options = { name: taskName, dueDate: dueDate }
+        } else {
+            options = { name: taskName }
         }
 
-        const dueDate = valideDate(taskDueDate)
 
-        if (dueDate === null) {
-            await interaction.editReply('respect dd/mm/yyyy or dd/mm or dd')
-            return;
-        }
-
-        const taskData = await getTaskData(taskName, dueDate)
+        const taskData = await getTaskData(options)
 
         if (!taskData) {
             await interaction.editReply('no task corresponding')
@@ -49,7 +53,7 @@ export const taskGet: Command = {
         const embed = new MessageEmbed()
             .setTitle(taskData.name)
             .setDescription(taskData.description)
-            .addField('for :', `${dueDate.getDate()}/${dueDate.getMonth()+1}/${dueDate.getFullYear()}`)
+            .addField('for :', `${new Date(taskData.dueDate).getDate()}/${new Date(taskData.dueDate).getMonth()+1}/${new Date(taskData.dueDate).getFullYear()}`)
 
         await interaction.editReply({ embeds: [embed] })
     }
