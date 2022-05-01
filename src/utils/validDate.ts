@@ -1,7 +1,11 @@
-export const valideDate = (date: string) => {
-    let year = date.split('/')[2] || new Date().getFullYear().toString()
-    let month = date.split('/')[1] || (new Date().getMonth()+1).toString()
+export const validDate = (date: string) => {
+
     let day = date.split('/')[0] || date
+    let year = date.split('/')[2] || new Date().getFullYear().toString()
+
+    let month = date.split('/')[1] ||
+        parseInt(day,10) > new Date().getDate() ? (new Date().getMonth()+1).toString() : (new Date().getMonth()+2).toString()
+    //TODO detect if it's new year
 
 
     if (day.length >= 2 && month.length >= 2 && year.length !== 4) return null
