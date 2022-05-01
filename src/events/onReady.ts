@@ -20,7 +20,6 @@ export const onReady = async (client: Client) => {
         { body: commandData }
     );
 
-
     const checkTask = new CronJob(
         '30 23 * * *',
         async () => {
@@ -34,10 +33,6 @@ export const onReady = async (client: Client) => {
         }
     )
     checkTask.start()
-
-
-
-
 
 
     console.log(`[DiscordBot] - Connected on discord as ${client.user?.username}`)
