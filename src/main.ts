@@ -1,4 +1,4 @@
-import { Client } from "discord.js"
+import { Client } from 'discord.js'
 import { IntentOptions } from "./config/IntentOptions";
 import { connectDatabase } from "./database/connectDatabase"
 import { validateEnv } from "./utils/validateEnv"

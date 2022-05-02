@@ -12,10 +12,8 @@ export const validDate = (date: string) => {
         year = (parseInt(year,10)+1).toString()
     }
 
-    console.log(day, month, year);
-
     if (day.length > 2 || month.length > 2 || year.length !== 4) return null
-    if ( parseInt(day, 10) < 0 && parseInt(day, 10) >= 31 && parseInt(month, 10) < 0 && parseInt(month, 10) >= 12) return null
+    if ( parseInt(day, 10) < 0 || parseInt(day, 10) >= 31 || parseInt(month, 10) < 0 || parseInt(month, 10) >= 12) return null
 
     if (day.length === 1) {
         day = "0" + day;

@@ -3,6 +3,7 @@ import { REST } from "@discordjs/rest"
 import { Routes } from "discord-api-types/v9";
 import { CommandList } from "../commands/_CommandList";
 import TaskModel from "../database/models/TaskModel";
+import { logger } from '../utils/logger'
 const CronJob = require('cron').CronJob;
 
 export const onReady = async (client: Client) => {
@@ -34,6 +35,5 @@ export const onReady = async (client: Client) => {
     )
     checkTask.start()
 
-
-    console.log(`[DiscordBot] - Connected on discord as ${client.user?.username}`)
+    logger(['DiscordBot', 'status'], [`Connected on discord as ${client.user?.username}`])
 };
