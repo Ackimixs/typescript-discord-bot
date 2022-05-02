@@ -1,14 +1,12 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { Command } from "../interfaces/Command";
 import { getTaskData } from '../modules/getTaskData'
-import { MessageEmbed } from "discord.js";
 import { validDate } from '../utils/validDate'
 
-
-export const taskGet: Command = {
-    data:new SlashCommandBuilder()
-        .setName('task_get')
-        .setDescription('get task')
+export const removeTask: Command = {
+    data: new SlashCommandBuilder()
+        .setName('remove_task')
+        .setDescription('remove task')
         .addStringOption(options =>
             options
                 .setName('name')
@@ -17,19 +15,18 @@ export const taskGet: Command = {
         .addStringOption(options =>
             options
                 .setName('date')
-                .setDescription('dd/mm/yyyy or dd/mm or dd')
+                .setDescription('date')
                 .setRequired(false)),
 
     run: async (interaction) => {
-        await interaction.deferReply()
-
+        await interaction.deferReply();
         const taskName = interaction.options.getString('name') as string
-        const taskDueDate = interaction.options.getString('date')
+        const taskDate = interaction.options.getString('date')
 
 
         let options = {};
-        if (taskDueDate) {
-            const dueDate = validDate(taskDueDate)
+        if (taskDate) {
+            const dueDate = validDate(taskDate)
 
             if (dueDate === null) {
                 await interaction.editReply('respect dd/mm/yyyy or dd/mm or dd')
@@ -41,7 +38,6 @@ export const taskGet: Command = {
             options = { name: taskName }
         }
 
-
         const taskData = await getTaskData(options)
 
         if (!taskData) {
@@ -49,11 +45,9 @@ export const taskGet: Command = {
             return;
         }
 
-        const embed = new MessageEmbed()
-            .setTitle(taskData.name)
-            .setDescription(taskData.description)
-            .addField('for :', `${new Date(taskData.dueDate).getDate()}/${new Date(taskData.dueDate).getMonth()+1}/${new Date(taskData.dueDate).getFullYear()}`)
+        await taskData.remove()
 
-        await interaction.editReply({ embeds: [embed] })
+        await interaction.editReply(`remove task : ${taskData.name}`)
+
     }
 }
