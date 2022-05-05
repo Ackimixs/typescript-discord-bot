@@ -1,7 +1,7 @@
 import TaskModel, { TaskInt } from "../database/models/TaskModel";
-import { logger } from '../utils/logger'
+import {IsenBot} from "../utils/IsenBot";
 
-export const getTaskData = async (options: object): Promise<TaskInt | null> => {
+export const getTaskData = async (options: object, client: IsenBot): Promise<TaskInt | null> => {
     const TaskData = await TaskModel.find(options)
     let firstTask: TaskInt | null;
     if (TaskData.length === 0) {
@@ -22,6 +22,6 @@ export const getTaskData = async (options: object): Promise<TaskInt | null> => {
     let obj: string[] = []
     Object.entries(options).forEach(([key, value]) => {obj.push(`${key} : ${value}`)})
     obj.push(`result : ${TaskData.length}`)
-    logger(['Database', 'get', 'task'], obj)
+    client.logger(['Database', 'get', 'task'], obj)
     return firstTask;
 };

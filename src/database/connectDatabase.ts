@@ -1,7 +1,7 @@
 import { connect } from "mongoose";
-import { logger } from '../utils/logger'
+import { IsenBot } from "../utils/IsenBot";
 
-export const connectDatabase = async () => {
+export const connectDatabase = async (client: IsenBot) => {
     await connect(process.env.MONGO_URI as string);
-    logger(['Database', 'status'], ['Database connected !'])
+    client.logger(['Database', 'status'], ['Database connected !'])
 }

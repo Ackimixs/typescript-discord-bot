@@ -20,7 +20,7 @@ export const taskGet: Command = {
                 .setDescription('dd/mm/yyyy or dd/mm or dd')
                 .setRequired(false)),
 
-    run: async (interaction) => {
+    run: async (interaction, client) => {
         await interaction.deferReply()
 
         const taskName = interaction.options.getString('name') as string
@@ -42,7 +42,7 @@ export const taskGet: Command = {
         }
 
 
-        const taskData = await getTaskData(options)
+        const taskData = await getTaskData(options, client)
 
         if (!taskData) {
             await interaction.editReply('no task corresponding')

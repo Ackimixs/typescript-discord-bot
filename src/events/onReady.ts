@@ -1,12 +1,11 @@
-import { Client } from "discord.js";
 import { REST } from "@discordjs/rest"
 import { Routes } from "discord-api-types/v9";
 import { CommandList } from "../commands/_CommandList";
 import TaskModel from "../database/models/TaskModel";
-import { logger } from '../utils/logger'
+import {IsenBot} from "../utils/IsenBot";
 const CronJob = require('cron').CronJob;
 
-export const onReady = async (client: Client) => {
+export const onReady = async (client: IsenBot) => {
     const rest = new REST({ version: "9" }).setToken(
         process.env.BOT_TOKEN as string
     );
@@ -35,5 +34,5 @@ export const onReady = async (client: Client) => {
     )
     checkTask.start()
 
-    logger(['DiscordBot', 'status'], [`Connected on discord as ${client.user?.username}`])
+    client.logger(['DiscordBot', 'status'], [`Connected on discord as ${client.user?.username}`])
 };

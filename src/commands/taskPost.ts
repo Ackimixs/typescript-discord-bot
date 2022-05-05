@@ -27,7 +27,7 @@ export const taskPost: Command = {
                 .setRequired(true)
         ),
 
-    run: async (interaction) => {
+    run: async (interaction, client) => {
         await interaction.deferReply()
 
         const taskName = interaction.options.getString('name')
@@ -48,14 +48,14 @@ export const taskPost: Command = {
             return;
         }
 
-        const taskDataExist = await getTaskData({ name: taskName, dueDate: dueDate })
+        const taskDataExist = await getTaskData({ name: taskName, dueDate: dueDate }, client)
 
         if (taskDataExist) {
             await interaction.editReply('task already exist')
             return;
         }
 
-        const taskDataToPost = await postTaskData(taskName, taskDescription, dueDate, author)
+        const taskDataToPost = await postTaskData(taskName, taskDescription, dueDate, author, client)
 
         if (taskDataToPost) {
             await interaction.editReply('task post in the database')

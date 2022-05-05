@@ -18,7 +18,7 @@ export const removeTask: Command = {
                 .setDescription('date')
                 .setRequired(false)),
 
-    run: async (interaction) => {
+    run: async (interaction, client) => {
         await interaction.deferReply();
         const taskName = interaction.options.getString('name') as string
         const taskDate = interaction.options.getString('date')
@@ -38,7 +38,7 @@ export const removeTask: Command = {
             options = { name: taskName }
         }
 
-        const taskData = await getTaskData(options)
+        const taskData = await getTaskData(options, client)
 
         if (!taskData) {
             await interaction.editReply('no task corresponding')
