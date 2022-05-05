@@ -1,5 +1,5 @@
 import { connect } from "mongoose";
-import { IsenBot } from "../utils/IsenBot";
+import { IsenBot } from "../config/IsenBot";
 
 export const connectDatabase = async (client: IsenBot) => {
     await connect(process.env.MONGO_URI as string);

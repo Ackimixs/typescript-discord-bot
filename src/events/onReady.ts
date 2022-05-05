@@ -2,7 +2,7 @@ import { REST } from "@discordjs/rest"
 import { Routes } from "discord-api-types/v9";
 import { CommandList } from "../commands/_CommandList";
 import TaskModel from "../database/models/TaskModel";
-import {IsenBot} from "../utils/IsenBot";
+import {IsenBot} from "../config/IsenBot";
 const CronJob = require('cron').CronJob;
 
 export const onReady = async (client: IsenBot) => {
@@ -33,6 +33,9 @@ export const onReady = async (client: IsenBot) => {
         }
     )
     checkTask.start()
+
+
+    await client.setAllGuilds(client)
 
     client.logger(['DiscordBot', 'status'], [`Connected on discord as ${client.user?.username}`])
 };

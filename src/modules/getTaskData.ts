@@ -1,5 +1,5 @@
 import TaskModel, { TaskInt } from "../database/models/TaskModel";
-import {IsenBot} from "../utils/IsenBot";
+import { IsenBot } from "../config/IsenBot";
 
 export const getTaskData = async (options: object, client: IsenBot): Promise<TaskInt | null> => {
     const TaskData = await TaskModel.find(options)

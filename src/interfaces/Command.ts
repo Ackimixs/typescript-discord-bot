@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from "@discordjs/builders"
 import { CommandInteraction } from "discord.js"
-import {IsenBot} from "../utils/IsenBot";
+import {IsenBot} from "../config/IsenBot";
 
 
 export interface Command {

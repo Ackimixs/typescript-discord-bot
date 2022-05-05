@@ -1,6 +1,6 @@
 import { Interaction } from 'discord.js';
 import { CommandList } from '../commands/_CommandList';
-import {IsenBot} from "../utils/IsenBot";
+import {IsenBot} from "../config/IsenBot";
 
 export const onInteraction = async (interaction: Interaction, client: IsenBot)=> {
     if (!interaction.isCommand()) return
