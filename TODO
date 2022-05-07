@@ -11,8 +11,12 @@ add stop button on every interaction
 1 foret // endroit fictif ou y a des pokemon rencontre random contre un pokemon de level compris entre lvl pokemon de base +/- 5 10%
 le joueur ne peux avoir que 2 pokemon dans son sac
 metre en place les pokedollar dans n'importe quel fight meme contre des pokemon
+1 db model d'un pokemon, contient le db model ou l'id (seras plus facile a stockée et a retrouiver) de son / ses  evolution(s)
+du fait de la database y'aura un multiguilde genre sur chaque guilde ou est le bot (meme botUser) bas le joueur aura sa save
 
-Quand cela seras fait ce seras deja un bon debut x)
+Pur les niveux je pense que le nombre d'xp qu'il faut pour le prochain niveau doit etre egal a 1000 * niveaux
+le nb d'xp qui est gagné par le jouer est random entre 60 et 99 * (niv * 50%) => (peut etre ameliorer plus tard)
+
 
 
 
@@ -20,3 +24,135 @@ MAJ future si je suis assez con pour continuer ce projet
     =>
 => POUR COURONNER LE TOUT FAIRE UNE DINGUERIE AVEC CANVAS POUR LES DESSINS MAIS CASSI IMPOSSIBLE A MOINS D'ETRE AU CHOMAGE <=
 creé les type (feu eau....) attaque critique, l'apprantisage de certaine maitrise => mettre 2 champs dans la db du pokemon 1 pour toute les attaque et 1 champ avec les attaque de maintenat => array de 4 attaques
+
+FUCKING 2.0.0 Battaille entre les different user dans une meme Guild ou encore mieux finale update battaille en matchmaking entre 2 user (ptn je suis vrm con c'est impossible)
+
+
+
+
+Ce qui est actuellement fait ou en prevision=>
+    Model du pokemon finis normalement
+
+
+
+    1 model pour chaque User avec litteralement tout => map, pokemon
+    model de chaque pokemon =>
+        id
+        niveau
+        xp
+
+        Specialiter :
+            PV
+            Att
+            Def
+            Vit
+            Spé
+
+        type => prevision pour la 1.2
+        id de son evolution (null si pas d'evo ou pas encore crée)
+
+        Attaque :
+
+
+
+pour le niveaux et l'xp je crois que freeCodeCamp avait un truc pas mal pour ca a voir dans le projet bot discrod typescript et mongoDB
+Le probleme est comment faire des event listenr qui s'execute quand le nombre d'xp est superieur au nombre du niveaux
+    => verif de mass truc apres chaque game logique
+    Chiny
+
+
+
+
+
+
+
+
+
+Pokemon =>
+    https://www.pokebip.com/page/jeuxvideo/rbvj/statistiques/liste_pokemon_basestats
+    Pokebip un dinguerie pour toutes les stat de chaque pokemon pour une grosse maj new pokemon
+
+
+
+    Bulbizarre
+        id : 01
+        name : Bulbizarre
+        lvl : 1
+        xp : 0
+
+        Specialiter :
+            PV : 45
+            Att : 49
+            Déf : 49
+            Vit : 45
+            Spé : 65
+
+        Type : plante, poison
+
+        Evo : Herbizarre : niv 16 : id : 02
+              Florizarre : niv 32 : id : 03
+
+
+    Salameche
+        id : 04
+        name : Salameche
+        lvl : 1
+        xp : 0
+
+        Specialiter :
+            PV : 39
+            Att : 52
+            Déf : 43
+            Vit : 65
+            Spé : 50
+
+        Type : Feu
+
+        evo : Reptincel : niv : 16 : id : 05
+              Dracaufeu : niv : 36 : id : 06
+
+
+    Carapuce
+        id : 07
+        name : Carapuce
+        lvl : 1
+        xp : 0
+
+        Specialiter :
+            PV : 44
+            Att : 48
+            Def : 65
+            Vit : 43
+            Spé : 50
+
+        type : Eau
+
+        evo : Carabaffe : niv : 16 : id : 08
+              Tortank : niv : 36 : id : 09
+
+
+        Attaque :
+            => Charge, Rugissement ? en vrai pas besoin flemme, Vampigraine, fouet lianes
+
+    Picka
+        id : 10
+        lvl : 1
+        xp : 0
+
+        Specialiter :
+            PV : 35
+            Att : 55
+            Def : 30
+            Vit : 90
+            Spé : 50
+
+        type : Electr
+
+        evo : Raichu : niv : 21 : id : 11
+
+
+
+---------  CODE  ------------
+Pour le model de PokemonUser de la db
+on peux faire un .stringify et .parse je croit pour en faire un string et le stocké car il n'y a pas de type custom pour la db fin avec un object on peux surement le faire mais jsp
+
