@@ -2,7 +2,7 @@ import { REST } from "@discordjs/rest"
 import { Routes } from "discord-api-types/v9";
 import { CommandList } from "../commands/_CommandList";
 import TaskModel from "../database/models/TaskModel";
-import {IsenBot} from "../config/IsenBot";
+import { IsenBot } from "../config/IsenBot";
 const CronJob = require('cron').CronJob;
 
 module.exports = {
@@ -15,13 +15,17 @@ module.exports = {
 
         const commandData = CommandList.map((command) => command.data.toJSON());
 
-        await rest.put(
-            Routes.applicationGuildCommands(
-                client.user?.id || "missing token",
-                process.env.GUILD_ID as string
-            ),
-            { body: commandData }
-        );
+        const guilds = await client.guilds.fetch()
+        for (let guild of guilds) {
+            await rest.put(
+                Routes.applicationGuildCommands(
+                    client.user?.id || "missing token",
+                    guild[1].id as string
+                ),
+                { body: commandData }
+            );
+        }
+
 
         const checkTask = new CronJob(
             '30 23 * * *',

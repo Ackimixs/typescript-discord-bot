@@ -11,7 +11,6 @@ module.exports = {
             if (interaction.commandName === Command.data.name) {
                 client.logger(['Discordbot', 'Command'], [interaction.commandName, `channel id : ${interaction.channelId}`, interaction.user.tag])
                 await Command.run(interaction, client)
-                break
             }
         }
     }

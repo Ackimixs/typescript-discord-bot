@@ -1,6 +1,7 @@
 import { Document, model, Schema } from "mongoose";
 
 export interface TaskInt extends Document {
+    guildId: string;
     name: string;
     description: string;
     dueDate: number;
@@ -8,6 +9,7 @@ export interface TaskInt extends Document {
 }
 
 export const Task = new Schema({
+    guildId: String,
     name: String,
     description: String,
     dueDate: Date,

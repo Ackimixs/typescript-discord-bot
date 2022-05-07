@@ -36,9 +36,9 @@ export const taskGet: Command = {
                 return;
             }
 
-            options = { name: taskName, dueDate: dueDate }
+            options = { name: taskName, dueDate: dueDate, guildId: interaction.guildId }
         } else {
-            options = { name: taskName }
+            options = { name: taskName, guildId: interaction.guildId }
         }
 
 

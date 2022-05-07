@@ -6,6 +6,6 @@ module.exports = {
     once: false,
     async execute(client: IsenBot, guild: Guild) {
         await client.removeGuild(guild.id, client)
-        client.logger(['DiscordBot', 'status', 'guild'], ['guild add', `guild id : ${guild.id}`])
+        client.logger(['DiscordBot', 'status', 'guild'], ['guild remove', `guild id : ${guild.id}`])
     }
 }

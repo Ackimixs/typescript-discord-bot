@@ -1,4 +1,4 @@
-import { Client, ClientOptions} from 'discord.js'
+import {Client, ClientOptions, Guild} from 'discord.js'
 import { postGuildData } from '../modules/postGuildData'
 import { getGuildData } from '../modules/getGuildData'
 import GuildModel , { GuildInt } from "../database/models/GuildModel";
@@ -23,7 +23,7 @@ export class IsenBot extends Client {
     async setAllGuilds(client: IsenBot) {
         const guilds = await client.guilds.fetch()
         for (let guild of guilds) {
-            let guildData = await getGuildData({id: guild[0]}, client) || await postGuildData({id: guild[0]}, client)
+            let guildData = await getGuildData({id: guild[0]}, client) || await postGuildData({id: guild[1].id, name: guild[1].name}, client)
             this.addGuild(guildData)
         }
     }
@@ -68,10 +68,9 @@ export class IsenBot extends Client {
         await this.updateGuildParam()
     }
 
-    async newGuild(guildId: string, client: IsenBot) {
-        const guild = client.guilds.fetch(guildId)
+    async newGuild(guild: Guild, client: IsenBot) {
         if (!guild) return
-        await postGuildData({id: guildId}, client)
+        await postGuildData({id: guild.id, name: guild.name}, client)
     }
 
     async removeGuild(guildId: string, client: IsenBot) {

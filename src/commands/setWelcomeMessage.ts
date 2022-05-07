@@ -20,10 +20,13 @@ export const setWelcomeMessage: Command = {
         await interaction.deferReply()
         const guildId = interaction.guildId;
         const channelId = interaction.options.getChannel('channel')?.id
-        if(!channelId || !guildId) return
+        if(!channelId || !guildId) {
+            await interaction.editReply('error')
+            return
+        }
 
         const channel = await client.channels.fetch(channelId)
-        if (!channel?.isText) {
+        if (!channel?.isText()) {
             await interaction.editReply('error please selected valid channel')
             return;
         }

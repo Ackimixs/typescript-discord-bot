@@ -48,14 +48,14 @@ export const taskPost: Command = {
             return;
         }
 
-        const taskDataExist = await getTaskData({ name: taskName, dueDate: dueDate }, client)
+        const taskDataExist = await getTaskData({ name: taskName, dueDate: dueDate, guildId: interaction.guildId }, client)
 
         if (taskDataExist) {
             await interaction.editReply('task already exist')
             return;
         }
 
-        const taskDataToPost = await postTaskData(taskName, taskDescription, dueDate, author, client)
+        const taskDataToPost = await postTaskData(interaction.guildId as string, taskName, taskDescription, dueDate, author, client)
 
         if (taskDataToPost) {
             await interaction.editReply('task post in the database')
