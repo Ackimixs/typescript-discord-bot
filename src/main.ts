@@ -26,3 +26,4 @@ const fs = require('fs');
 
     await client.login(process.env.BOT_TOKEN)
 })();
+//TODO pokemon => todo file

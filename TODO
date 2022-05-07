@@ -1,0 +1,22 @@
+pokemon just to test and fun with like 3 pokemon / 3 starter and 3 other pokemon to fight
+every pokemon is a mongoDB model => tuto mongoDB typescript freeCodeCamp
+1 guys can have maximum of 2 pokemon and play with 1 channel and button
+launch game with /play (options)
+add stop button on every interaction
+=> learn button command
+
+
+1 ville avec 1 pokecenter ou tu peux acheter soin et pokeball
+1 arene pour fight 4 mec au hasard
+1 foret // endroit fictif ou y a des pokemon rencontre random contre un pokemon de level compris entre lvl pokemon de base +/- 5 10%
+le joueur ne peux avoir que 2 pokemon dans son sac
+metre en place les pokedollar dans n'importe quel fight meme contre des pokemon
+
+Quand cela seras fait ce seras deja un bon debut x)
+
+
+
+MAJ future si je suis assez con pour continuer ce projet
+    =>
+=> POUR COURONNER LE TOUT FAIRE UNE DINGUERIE AVEC CANVAS POUR LES DESSINS MAIS CASSI IMPOSSIBLE A MOINS D'ETRE AU CHOMAGE <=
+creé les type (feu eau....) attaque critique, l'apprantisage de certaine maitrise => mettre 2 champs dans la db du pokemon 1 pour toute les attaque et 1 champ avec les attaque de maintenat => array de 4 attaques
