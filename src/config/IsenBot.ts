@@ -1,7 +1,7 @@
 import { Client, ClientOptions} from 'discord.js'
 import { postGuildData } from '../modules/postGuildData'
 import { getGuildData } from '../modules/getGuildData'
-import { GuildInt } from "../database/models/GuildModel";
+import GuildModel , { GuildInt } from "../database/models/GuildModel";
 
 export class IsenBot extends Client {
     public guildParam: GuildInt[];
@@ -28,35 +28,55 @@ export class IsenBot extends Client {
         }
     }
 
+    async updateGuildParam() {
+        this.guildParam = await GuildModel.find()
+    }
+
     addGuild(guildData: GuildInt | null) {
         if (guildData) {
             this.guildParam.push(guildData)
         }
     }
 
-    async setWelcomeMessage(guild: GuildInt, welcomeChannelId: string, welcomeMessage: string, client: IsenBot) {
-        const guild_1 = await client.guilds.fetch(guild.id);
+    async setWelcomeMessage(guildId: string, welcomeChannelId: string, welcomeMessage: string, client: IsenBot) {
+        const guild_1 = await client.guilds.fetch(guildId);
         if (!guild_1) return
 
         let welcomeChannel = guild_1.channels.fetch(welcomeChannelId)
         if (!welcomeChannel) return
 
-        const guild_2 = await getGuildData({id: '968595163700162560'}, client) as GuildInt
+        const guild_2 = await getGuildData({id: guildId}, client)
+        if (!guild_2) return
         guild_2.welcome.channel = welcomeChannelId
         guild_2.welcome.message = welcomeMessage
         await postGuildData(guild_2, client)
+        await this.updateGuildParam()
     }
 
-    /*async getFromDB(options: object, client: IsenBot) {
-        const guildData = await getGuildData(options, client)
-        this.addGuild(guildData)
-        this.logger(["Database", "get", "GuildData"], [''])
-    }*/
+    async setGoodbyeMessage(guildId: string, goodbyeChannelId: string, goodbyeMessage: string, client: IsenBot) {
+        const guild = await client.guilds.fetch(guildId);
+        if (!guild) return
 
-    /*async postToDB(client: IsenBot) {
-        for (const guildOptions of this.guildParam) {
-            const guildData = await postGuildData(guildOptions, client)
-            this.logger(["Database", "post", "GuildData"], [`guild id : ${guildData.id}`])
-        }
-    }*/
+        const welcomeChannel = await guild.channels.fetch(goodbyeChannelId)
+        if (!welcomeChannel) return
+
+        const guild_2 = await getGuildData({id: guildId}, client)
+        if (!guild_2) return
+        guild_2.goodBye.channel = goodbyeChannelId
+        guild_2.goodBye.message = goodbyeMessage
+        await postGuildData(guild_2, client)
+        await this.updateGuildParam()
+    }
+
+    async newGuild(guildId: string, client: IsenBot) {
+        const guild = client.guilds.fetch(guildId)
+        if (!guild) return
+        await postGuildData({id: guildId}, client)
+    }
+
+    async removeGuild(guildId: string, client: IsenBot) {
+        const guildData = await getGuildData({id: guildId}, client)
+        if(!guildData) return
+        await guildData.remove()
+    }
 }

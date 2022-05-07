@@ -4,6 +4,6 @@ import {IsenBot} from "../config/IsenBot";
 export const postGuildData = async (options: object, client: IsenBot): Promise<GuildInt> => {
     const GuildData = await GuildModel.create(options);
 
-    client.logger(['Database', 'post', 'guild'], ['result'])
+    client.logger(['Database', 'post', 'guild'], [`guild id : ${GuildData.id}`])
     return GuildData;
 };

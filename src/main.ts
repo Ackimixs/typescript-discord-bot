@@ -2,20 +2,25 @@ import { IsenBot } from './config/IsenBot'
 import { IntentOptions } from "./config/IntentOptions";
 import { connectDatabase } from "./database/connectDatabase"
 import { validateEnv } from "./utils/validateEnv"
-import { onInteraction } from "./events/onInteraction";
-import { onReady } from "./events/onReady";
-import {onGuildMemberAdd} from "./events/onGuildMemberAdd";
+const fs = require('fs');
 
 (async () => {
     if (!validateEnv()) return;
 
     const client = new IsenBot({intents: IntentOptions});
 
-    client.once('ready', async () => await onReady(client))
 
-    client.on('interactionCreate', async (interaction) => await onInteraction(interaction, client))
+    //Events handler
+    const eventFiles = fs.readdirSync('./prod/events/').filter((file: string) => file.endsWith('.js'));
 
-    client.on('guildMemberAdd', async (member) => await onGuildMemberAdd(member, client))
+    for (const file of eventFiles) {
+        const event = require(`./events/${file}`);
+        if (event.once) {
+            client.once(event.name, async (...args) => await event.execute(client, ...args));
+        } else {
+            client.on(event.name, async (...args) => await event.execute(client, ...args));
+        }
+    }
 
     await connectDatabase(client)
 
