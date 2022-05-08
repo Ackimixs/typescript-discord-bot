@@ -17,13 +17,15 @@ du fait de la database y'aura un multiguilde genre sur chaque guilde ou est le b
 Pur les niveux je pense que le nombre d'xp qu'il faut pour le prochain niveau doit etre egal a 1000 * niveaux
 le nb d'xp qui est gagné par le jouer est random entre 60 et 99 * (niv * 50%) => (peut etre ameliorer plus tard)
 
-
+Attaque = attaque * lvl pokemon + 10% type => eau sur feu etc..
 
 
 MAJ future si je suis assez con pour continuer ce projet
     =>
 => POUR COURONNER LE TOUT FAIRE UNE DINGUERIE AVEC CANVAS POUR LES DESSINS MAIS CASSI IMPOSSIBLE A MOINS D'ETRE AU CHOMAGE <=
 creé les type (feu eau....) attaque critique, l'apprantisage de certaine maitrise => mettre 2 champs dans la db du pokemon 1 pour toute les attaque et 1 champ avec les attaque de maintenat => array de 4 attaques
+faire une db avec chaqaue attaque ou utiliser une db qui existe deja si cela existe
+
 
 FUCKING 2.0.0 Battaille entre les different user dans une meme Guild ou encore mieux finale update battaille en matchmaking entre 2 user (ptn je suis vrm con c'est impossible)
 

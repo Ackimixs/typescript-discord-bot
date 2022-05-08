@@ -14,31 +14,45 @@ export interface PokemonInt extends Document {
     }
     type: string;
     evo: {
-        firstEvoId: number;
-        SecondEvoId: number;
+        FirstEvo: {
+            id: number;
+            level: number;
+        } | null;
+        SecondEvoId: {
+            id: number;
+            level: number;
+        } | null;
     }
     attack: {
         first: {
             name: string;
             attack: number;
             type: string;
-        }
+            nbAttack: number;
+            nbAttackLeft: number;
+        } | null;
         second: {
             name: string;
             attack: number;
             type: string;
-        }
+            nbAttack: number;
+            nbAttackLeft: number;
+        } | null;
         third: {
             name: string;
             attack: number;
             type: string;
-        }
+            nbAttack: number;
+            nbAttackLeft: number;
+        } | null;
         fourth: {
             name: string;
             attack: number;
             type: string;
-        }
-    }
+            nbAttack: number;
+            nbAttackLeft: number;
+        } | null;
+    } | null;
 }
 
 export const Pokemon = new Schema({
@@ -55,31 +69,47 @@ export const Pokemon = new Schema({
     },
     type: String,
     evo: {
-        firstEvoId: Number,
-        SecondEvoId: Number,
+        FirstEvoId: {
+            id: Number,
+            level: Number,
+        },
+        SecondEvoId: {
+            id: Number,
+            level: Number,
+        },
     },
     attack: {
         first: {
             name: String,
             attack: Number,
-            type: String
+            type: String,
+            nbAttack: Number,
+            nbAttackLeft: Number,
         },
         second: {
             name: String,
             attack: Number,
-            type: String
+            type: String,
+            nbAttack: Number,
+            nbAttackLeft: Number,
         },
         third: {
             name: String,
             attack: Number,
-            type: String
+            type: String,
+            nbAttack: Number,
+            nbAttackLeft: Number,
         },
         fourth: {
             name: String,
             attack: Number,
-            type: String
+            type: String,
+            nbAttack: Number,
+            nbAttackLeft: Number,
         },
     }
-});
+},
+{ typeKey: '$type' }
+);
 
 export default model<PokemonInt>('pokemon', Pokemon);
